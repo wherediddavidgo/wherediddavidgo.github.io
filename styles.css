@@ -1,0 +1,91 @@
+/* body {
+    background-color: lightblue;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    color: navy;
+    margin-left: 20px
+}
+
+div {
+    width: 800px;
+    margin: auto;
+    background-color: lightgreen;
+}
+
+li {
+    display: inline;
+    float:right;
+    background-color: pink;
+} */
+
+
+
+header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #f8f8f8;
+    /* border-bottom: 1px solid #e7e7e7; */
+    /* width: 800px; */
+    /* text-align: center; */
+}
+
+.name {
+    font-size: 2.5rem;
+    font-weight: bold;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+.name a {
+    text-decoration: none;
+    color: #333;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    /* font-style:italic; */
+}
+
+.name a:hover {
+    color: #666;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav li {
+    margin-left: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #555;
+    font-size: 1.1rem;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+nav a:hover {
+    color: #000;
+}
+
+.main_content {
+    display: grid;
+    margin:auto;
+    width: 800px;
+    justify-content: left;
+    align-items: left;
+    padding: 20px 5%;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    font-weight: normal;
+}
+.main_image {
+    width: 600px;
+    margin: 20px;
+    justify-items: center;
+}
