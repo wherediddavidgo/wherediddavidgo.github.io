@@ -14,7 +14,7 @@ Education
 * B.S. in Geological Sciences, UNC Chapel Hill, 2024
 
 
-<embed src="http://wherediddavidgo.github.io/files/cv.pdf" type="application/pdf" width="100%" height="600px" title="Embedded PDF Viewer" />
+<embed src="http://wherediddavidgo.github.io/files/cv.pdf" type="application/pdf" width="100%" height="600px" title="Embedded PDF Viewer">
 
 Work experience
 ======
