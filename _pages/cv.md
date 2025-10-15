@@ -15,7 +15,7 @@ Education
 I poop my pants al the time
 ======
 
-<object data="http://wherediddavidgo.github.io/files/cv.pdf" width="600" height="700" type="application/pdf">
+<object data="/files/cv.pdf" width="600" height="700" type="application/pdf">
 
 <!-- Work experience
 ======
