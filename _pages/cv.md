@@ -11,9 +11,10 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+* B.S. in Geological Sciences, UNC Chapel Hill, 2024
+
+
+<embed src="http://wherediddavidgo.github.io/files/cv.pdf" type="application/pdf" width="100%" height="600px" title="Embedded PDF Viewer" />
 
 Work experience
 ======
