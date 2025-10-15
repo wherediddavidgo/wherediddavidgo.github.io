@@ -1,0 +1,21 @@
+/*
+  Images, added by DG
+  ========================================================================== */
+
+  .img-left {
+    float: left;
+    margin: 0 1em 1em 0;
+    max-width: 45%;
+  }
+  
+  .img-right {
+    float: right;
+    margin: 0 0 1em 1em;
+    max-width: 45%;
+  }
+  
+  .img-center {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+  }
