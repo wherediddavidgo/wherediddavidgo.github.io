@@ -12,10 +12,8 @@ redirect_from:
 Education
 ======
 * B.S. in Geological Sciences, UNC Chapel Hill, 2024 -->
-I poop my pants al the time
-======
 
-<object data="/files/cv.pdf" width="600" height="700" type="application/pdf">
+<object data="/files/cv.pdf" width="100%" height="600px" type="application/pdf">
 
 <!-- Work experience
 ======
