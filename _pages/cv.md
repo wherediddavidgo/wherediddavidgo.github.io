@@ -13,11 +13,12 @@ Education
 ======
 * B.S. in Geological Sciences, UNC Chapel Hill, 2024 -->
 I poop my pants al the time
+======
 
-<embed src="http://wherediddavidgo.github.io/files/cv.pdf" type="application/pdf" width="600" height="700" title="Embedded PDF Viewer">
+<object data="http://wherediddavidgo.github.io/files/cv.pdf" width="600" height="700" type="application/pdf">
 
-Work experience
-<!-- ======
+<!-- Work experience
+======
 * Spring 2024: Academic Pages Collaborator
   * GitHub University
   * Duties includes: Updates and improvements to template
