@@ -1,10 +1,10 @@
 ---
-permalink: /
+layout: archive
 title: "Education and Research Experience"
+permalink: /ere/
 author_profile: true
-redirect_from: 
-  - /ere/
-  - /ere.html
+redirect_from:
+  - /ere
 ---
 
 
