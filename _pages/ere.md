@@ -14,5 +14,6 @@ redirect_from:
     title="Interactive CV Map"
     loading="lazy"
     referrerpolicy="no-referrer"
+    style="width:100%;height:720px;border:0;border-radius:12px;"
   ></iframe>
 </div>
