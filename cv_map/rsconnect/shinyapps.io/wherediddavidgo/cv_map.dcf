@@ -1,0 +1,10 @@
+name: cv_map
+title:
+username: wherediddavidgo
+account: wherediddavidgo
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15805250
+bundleId:
+url: https://wherediddavidgo.shinyapps.io/cv_map/
+version: 1

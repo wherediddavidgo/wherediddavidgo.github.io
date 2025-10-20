@@ -8,4 +8,9 @@ redirect_from:
 ---
 
 
-figure out how to make a map
+<iframe
+  src="{{ site.baseurl }}/assets/cvmap/cvmap.html"
+  width="100%"
+  height="720"
+  style="border:0;border-radius:12px;"
+></iframe>

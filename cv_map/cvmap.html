@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive CV Map</title>
+
+  <!-- Leaflet CDN -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+      background: #0b1020;
+      color: #e9eefc;
+    }
+    .app {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: 100vh;
+      gap: 10px;
+      padding: 10px;
+    }
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+    }
+    .sidebar {
+      background: #111629;
+      border: 1px solid #2b3553;
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .list { overflow-y: auto; max-height: 70vh; }
+    .item {
+      border: 1px solid #2b3553;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      cursor: pointer;
+      background: #0e1430;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .item:hover { background: #1c2748; transform: translateY(-1px); }
+    .item.active { border-color: #61dafb; background: #0f1d38; }
+    #map {
+      width: 100%;
+      height: calc(100vh - 160px);
+      border-radius: 12px;
+      border: 1px solid #2b3553;
+    }
+    .details {
+      background: #111629;
+      border: 1px solid #2b3553;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    a { color: #61dafb; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <h2>Locations</h2>
+      <div id="list" class="list"></div>
+      <button id="fitAll">Fit to All</button>
+    </aside>
+
+    <main>
+      <div id="map"></div>
+      <div id="details" class="details">
+        <h3>Details</h3>
+        <p>Select a location to see details.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const SRC = "places.csv"; // CSV path relative to this file
+    async function fetchCSV(url) {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(`Failed to fetch ${url}`);
+      const text = await r.text();
+      const [headerLine, ...lines] = text.trim().split(/\r?\n/);
+      const headers = headerLine.split(",").map(h => h.trim());
+      return lines.map(line => {
+        const vals = line.match(/(?:\"[^\"]*\"|[^,])+/g)?.map(v=>v.replace(/^\"|\"$/g,'')) || [];
+        const obj = {};
+        headers.forEach((h, i) => obj[h] = vals[i]);
+        return obj;
+      });
+    }
+
+    let PLACES = [];
+    const map = L.map("map");
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: "&copy; OpenStreetMap contributors"
+    }).addTo(map);
+
+    const markers = L.layerGroup().addTo(map);
+    const markerById = new Map();
+    let selectedId = null;
+
+    const listEl = document.getElementById("list");
+    const detailsEl = document.getElementById("details");
+
+    function renderList() {
+      listEl.innerHTML = "";
+      PLACES.forEach(p => {
+        const item = document.createElement("div");
+        item.className = "item";
+        item.setAttribute("data-id", p.id);
+        item.innerHTML = `<strong>${p.name}</strong><br><small>${p.lat}, ${p.lon}</small>`;
+        item.onclick = () => selectPlace(p.id);
+        listEl.appendChild(item);
+      });
+    }
+
+    function updateDetails(p) {
+      detailsEl.innerHTML = `<h3>${p.name}</h3><p>${p.info}</p>`;
+    }
+
+    function selectPlace(id) {
+      const p = PLACES.find(x => x.id === id);
+      if (!p) return;
+      selectedId = id;
+      map.setView([+p.lat, +p.lon], +p.zoom);
+      updateDetails(p);
+      document.querySelectorAll(".item").forEach(el => {
+        el.classList.toggle("active", el.dataset.id === id);
+      });
+      markerById.forEach((m, mid) => {
+        m.setStyle({ radius: mid === id ? 10 : 7, color: mid === id ? "#00e0ff" : "#61dafb" });
+      });
+    }
+
+    document.getElementById("fitAll").onclick = () => {
+      const b = L.latLngBounds(PLACES.map(p => [+p.lat, +p.lon]));
+      map.fitBounds(b.pad(0.2));
+    };
+
+    (async () => {
+      try {
+        PLACES = await fetchCSV(SRC);
+        PLACES = PLACES.map(p => ({
+          id: p.id,
+          name: p.name,
+          lat: +p.lat,
+          lon: +p.lon,
+          zoom: +p.zoom || 12,
+          info: p.info
+        }));
+        const bounds = L.latLngBounds(PLACES.map(p => [p.lat, p.lon]));
+        map.fitBounds(bounds.pad(0.2));
+        PLACES.forEach(p => {
+          const m = L.circleMarker([p.lat, p.lon], { radius: 7, weight: 2, color: "#61dafb", fillOpacity: 0.9 })
+            .addTo(markers)
+            .bindTooltip(p.name)
+            .on("click", () => selectPlace(p.id));
+          markerById.set(p.id, m);
+        });
+        renderList();
+      } catch (e) {
+        detailsEl.innerHTML = `<p style="color:#f88;">${e.message}</p>`;
+      }
+    })();
+  </script>
+</body>
+</html>
