@@ -10,7 +10,7 @@ redirect_from:
 
 <div class="map-embed">
   <iframe
-    src="wherediddavidgo.github.io/assets/cv_map/cvmap.html"
+    src="https://wherediddavidgo.github.io/assets/cv_map/cvmap.html"
     title="Interactive CV Map"
     loading="lazy"
     referrerpolicy="no-referrer"
