@@ -189,6 +189,8 @@ exclude:
   - README
   - tmp
   - vendor
+  - cvmap/index.html
+  - cvmap/places.csv
 keep_files:
   - .git
   - .svn
