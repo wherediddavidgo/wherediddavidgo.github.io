@@ -8,9 +8,11 @@ redirect_from:
 ---
 
 
-<iframe
-  src="https://wherediddavidgo.github.io/cv_map/cvmap.html"
-  width="100%"
-  height="720"
-  style="border:0;border-radius:12px;"
-></iframe>
+<div class="map-embed">
+  <iframe
+    src="wherediddavidgo.github.io/assets/cv_map/cvmap.html"
+    title="Interactive CV Map"
+    loading="lazy"
+    referrerpolicy="no-referrer"
+  ></iframe>
+</div>
