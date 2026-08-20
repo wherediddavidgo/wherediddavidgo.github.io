@@ -8072,7 +8072,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 <h2 id="Theoretical-stream-order-assignment">Theoretical stream order assignment<a class="anchor-link" href="#Theoretical-stream-order-assignment">¶</a></h2><p>The total network length as a function of $ f $ and $g$ is given by $ S = \sum_{\omega=1}^{\omega_{max}} fg^{\omega} $. Network length is calculated per catchment from the (Prancevic et al 2025) dataset by the process described in <strong>Flow accumulation thresholds</strong>. Total network length is calculated per flow level by summing these catchment network lengths. To implement the theoretical scaling, we optimize $\omega_{max}$ and $f$ so that the summation meets three constraints:</p>
 <ol>
 <li>$ g = 0.5565 $ as calculated from the Horton ratios given in (Boyd &amp; Allen, 2025).</li>
-<li>The $ L(\omega) $ sum must be equal to the total network length derived from (Prancevic et al 2025).</li>
+<li>The $ L(\omega) $ sum must be equal to the total network length for the corresponding flow decile.</li>
 <li>$ L(\omega_{max}) $ must be close to 1879 km, the length of the highest stream order given by (Boyd &amp; Allen).</li>
 </ol>
 <p>The conceptual method was developed by a human. The mathematical details of the optimization and the function <code>solve_f_and_n</code> were written by an LLM and checked by a human.</p>
