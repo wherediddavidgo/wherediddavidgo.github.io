@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>length 2</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>length_theoretical</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7332,12 +7332,7 @@ a.anchor-link {
     if (!diagrams.length) {
       return;
     }
-    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.10.0/mermaid.esm.min.mjs")).default;
-    const elkUrl = "https://cdnjs.cloudflare.com/ajax/libs/mermaid-layout-elk/0.1.9/mermaid-layout-elk.esm.min.mjs";
-    if(elkUrl) {
-      const elkLayouts = (await import(elkUrl)).default;
-      mermaid.registerLayoutLoaders(elkLayouts);
-    }
+    const mermaid = (await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.7.0/mermaid.esm.min.mjs")).default;
     const parser = new DOMParser();
 
     mermaid.initialize({
@@ -7434,8 +7429,7 @@ a.anchor-link {
      * Post-process to ensure mermaid diagrams contain only valid SVG and XHTML.
      */
     function cleanMermaidSvg(svg) {
-      svg = svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
-      return `${SVG_XML_HEADER}${svg}`;
+      return svg.replace(RE_VOID_ELEMENT, replaceVoidElement);
     }
 
 
@@ -7461,285 +7455,6 @@ a.anchor-link {
       }
       return `<${tag} ${rest}>`;
     }
-
-
-  /**
-   * Named HTML entities with their decimal equivalent codes.
-   *
-   * @see https://www.w3.org/TR/WD-html40-970708/sgml/entities.html
-   * */
-  const HTML_ENTITIES = `<!ENTITY Aacute "&#193;">
-<!ENTITY aacute "&#225;">
-<!ENTITY Acirc "&#194;">
-<!ENTITY acirc "&#226;">
-<!ENTITY acute "&#180;">
-<!ENTITY AElig "&#198;">
-<!ENTITY aelig "&#230;">
-<!ENTITY Agrave "&#192;">
-<!ENTITY agrave "&#224;">
-<!ENTITY alefsym "&#8501;">
-<!ENTITY Alpha "&#913;">
-<!ENTITY alpha "&#945;">
-<!ENTITY amp "&#38;">
-<!ENTITY and "&#8869;">
-<!ENTITY ang "&#8736;">
-<!ENTITY Aring "&#197;">
-<!ENTITY aring "&#229;">
-<!ENTITY asymp "&#8776;">
-<!ENTITY Atilde "&#195;">
-<!ENTITY atilde "&#227;">
-<!ENTITY Auml "&#196;">
-<!ENTITY auml "&#228;">
-<!ENTITY bdquo "&#8222;">
-<!ENTITY Beta "&#914;">
-<!ENTITY beta "&#946;">
-<!ENTITY brvbar "&#166;">
-<!ENTITY bull "&#8226;">
-<!ENTITY cap "&#8745;">
-<!ENTITY Ccedil "&#199;">
-<!ENTITY ccedil "&#231;">
-<!ENTITY cedil "&#184;">
-<!ENTITY cent "&#162;">
-<!ENTITY Chi "&#935;">
-<!ENTITY chi "&#967;">
-<!ENTITY circ "&#710;">
-<!ENTITY clubs "&#9827;">
-<!ENTITY cong "&#8773;">
-<!ENTITY copy "&#169;">
-<!ENTITY crarr "&#8629;">
-<!ENTITY cup "&#8746;">
-<!ENTITY curren "&#164;">
-<!ENTITY dagger "&#8224;">
-<!ENTITY Dagger "&#8225;">
-<!ENTITY darr "&#8595;">
-<!ENTITY dArr "&#8659;">
-<!ENTITY deg "&#176;">
-<!ENTITY Delta "&#916;">
-<!ENTITY delta "&#948;">
-<!ENTITY diams "&#9830;">
-<!ENTITY divide "&#247;">
-<!ENTITY Eacute "&#201;">
-<!ENTITY eacute "&#233;">
-<!ENTITY Ecirc "&#202;">
-<!ENTITY ecirc "&#234;">
-<!ENTITY Egrave "&#200;">
-<!ENTITY egrave "&#232;">
-<!ENTITY empty "&#8709;">
-<!ENTITY emsp "&#8195;">
-<!ENTITY ensp "&#8194;">
-<!ENTITY epsilon "&#949;">
-<!ENTITY Epsilon "&#917;">
-<!ENTITY equiv "&#8801;">
-<!ENTITY Eta "&#919;">
-<!ENTITY eta "&#951;">
-<!ENTITY ETH "&#208;">
-<!ENTITY eth "&#240;">
-<!ENTITY Euml "&#203;">
-<!ENTITY euml "&#235;">
-<!ENTITY exist "&#8707;">
-<!ENTITY fnof "&#402;">
-<!ENTITY forall "&#8704;">
-<!ENTITY frac12 "&#189;">
-<!ENTITY frac14 "&#188;">
-<!ENTITY frac34 "&#190;">
-<!ENTITY frasl "&#8260;">
-<!ENTITY Gamma "&#915;">
-<!ENTITY gamma "&#947;">
-<!ENTITY ge "&#8805;">
-<!ENTITY gt "&#62;">
-<!ENTITY harr "&#8596;">
-<!ENTITY hArr "&#8660;">
-<!ENTITY hearts "&#9829;">
-<!ENTITY hellip "&#8230;">
-<!ENTITY Iacute "&#205;">
-<!ENTITY iacute "&#237;">
-<!ENTITY Icirc "&#206;">
-<!ENTITY icirc "&#238;">
-<!ENTITY iexcl "&#161;">
-<!ENTITY Igrave "&#204;">
-<!ENTITY igrave "&#236;">
-<!ENTITY image "&#8465;">
-<!ENTITY infin "&#8734;">
-<!ENTITY int "&#8747;">
-<!ENTITY Iota "&#921;">
-<!ENTITY iota "&#953;">
-<!ENTITY iquest "&#191;">
-<!ENTITY isin "&#8712;">
-<!ENTITY Iuml "&#207;">
-<!ENTITY iuml "&#239;">
-<!ENTITY Kappa "&#922;">
-<!ENTITY kappa "&#954;">
-<!ENTITY Lambda "&#923;">
-<!ENTITY lambda "&#955;">
-<!ENTITY lang "&#9001;">
-<!ENTITY laquo "&#171;">
-<!ENTITY larr "&#8592;">
-<!ENTITY lArr "&#8656;">
-<!ENTITY lceil "&#8968;">
-<!ENTITY ldquo "&#8220;">
-<!ENTITY le "&#8804;">
-<!ENTITY lfloor "&#8970;">
-<!ENTITY lowast "&#8727;">
-<!ENTITY loz "&#9674;">
-<!ENTITY lrm "&#8206;">
-<!ENTITY lsaquo "&#8249;">
-<!ENTITY lsquo "&#8216;">
-<!ENTITY lt "&#60;">
-<!ENTITY macr "&#175;">
-<!ENTITY mdash "&#8212;">
-<!ENTITY micro "&#181;">
-<!ENTITY middot "&#183;">
-<!ENTITY minus "&#8722;">
-<!ENTITY Mu "&#924;">
-<!ENTITY mu "&#956;">
-<!ENTITY nabla "&#8711;">
-<!ENTITY nbsp "&#160;">
-<!ENTITY ndash "&#8211;">
-<!ENTITY ne "&#8800;">
-<!ENTITY ni "&#8715;">
-<!ENTITY not "&#172;">
-<!ENTITY notin "&#8713;">
-<!ENTITY nsub "&#8836;">
-<!ENTITY Ntilde "&#209;">
-<!ENTITY ntilde "&#241;">
-<!ENTITY Nu "&#925;">
-<!ENTITY nu "&#957;">
-<!ENTITY Oacute "&#211;">
-<!ENTITY oacute "&#243;">
-<!ENTITY Ocirc "&#212;">
-<!ENTITY ocirc "&#244;">
-<!ENTITY OElig "&#338;">
-<!ENTITY oelig "&#339;">
-<!ENTITY Ograve "&#210;">
-<!ENTITY ograve "&#242;">
-<!ENTITY oline "&#8254;">
-<!ENTITY Omega "&#937;">
-<!ENTITY omega "&#969;">
-<!ENTITY Omicron "&#927;">
-<!ENTITY omicron "&#959;">
-<!ENTITY oplus "&#8853;">
-<!ENTITY or "&#8870;">
-<!ENTITY ordf "&#170;">
-<!ENTITY ordm "&#186;">
-<!ENTITY Oslash "&#216;">
-<!ENTITY oslash "&#248;">
-<!ENTITY Otilde "&#213;">
-<!ENTITY otilde "&#245;">
-<!ENTITY otimes "&#8855;">
-<!ENTITY Ouml "&#214;">
-<!ENTITY ouml "&#246;">
-<!ENTITY para "&#182;">
-<!ENTITY part "&#8706;">
-<!ENTITY permil "&#8240;">
-<!ENTITY perp "&#8869;">
-<!ENTITY Phi "&#934;">
-<!ENTITY phi "&#966;">
-<!ENTITY Pi "&#928;">
-<!ENTITY pi "&#960;">
-<!ENTITY piv "&#982;">
-<!ENTITY plusmn "&#177;">
-<!ENTITY pound "&#163;">
-<!ENTITY prime "&#8242;">
-<!ENTITY Prime "&#8243;">
-<!ENTITY prod "&#8719;">
-<!ENTITY prop "&#8733;">
-<!ENTITY Psi "&#936;">
-<!ENTITY psi "&#968;">
-<!ENTITY quot "&#34;">
-<!ENTITY radic "&#8730;">
-<!ENTITY rang "&#9002;">
-<!ENTITY raquo "&#187;">
-<!ENTITY rarr "&#8594;">
-<!ENTITY rArr "&#8658;">
-<!ENTITY rceil "&#8969;">
-<!ENTITY rdquo "&#8221;">
-<!ENTITY real "&#8476;">
-<!ENTITY reg "&#174;">
-<!ENTITY rfloor "&#8971;">
-<!ENTITY Rho "&#929;">
-<!ENTITY rho "&#961;">
-<!ENTITY rlm "&#8207;">
-<!ENTITY rsaquo "&#8250;">
-<!ENTITY rsquo "&#8217;">
-<!ENTITY sbquo "&#8218;">
-<!ENTITY Scaron "&#352;">
-<!ENTITY scaron "&#353;">
-<!ENTITY sdot "&#8901;">
-<!ENTITY sect "&#167;">
-<!ENTITY shy "&#173;">
-<!ENTITY Sigma "&#931;">
-<!ENTITY sigma "&#963;">
-<!ENTITY sigmaf "&#962;">
-<!ENTITY sim "&#8764;">
-<!ENTITY spades "&#9824;">
-<!ENTITY sub "&#8834;">
-<!ENTITY sube "&#8838;">
-<!ENTITY sum "&#8721;">
-<!ENTITY sup "&#8835;">
-<!ENTITY sup1 "&#185;">
-<!ENTITY sup2 "&#178;">
-<!ENTITY sup3 "&#179;">
-<!ENTITY supe "&#8839;">
-<!ENTITY szlig "&#223;">
-<!ENTITY Tau "&#932;">
-<!ENTITY tau "&#964;">
-<!ENTITY there4 "&#8756;">
-<!ENTITY Theta "&#920;">
-<!ENTITY theta "&#952;">
-<!ENTITY thetasym "&#977;">
-<!ENTITY thinsp "&#8201;">
-<!ENTITY THORN "&#222;">
-<!ENTITY thorn "&#254;">
-<!ENTITY tilde "&#732;">
-<!ENTITY times "&#215;">
-<!ENTITY trade "&#8482;">
-<!ENTITY Uacute "&#218;">
-<!ENTITY uacute "&#250;">
-<!ENTITY uarr "&#8593;">
-<!ENTITY uArr "&#8657;">
-<!ENTITY Ucirc "&#219;">
-<!ENTITY ucirc "&#251;">
-<!ENTITY Ugrave "&#217;">
-<!ENTITY ugrave "&#249;">
-<!ENTITY uml "&#168;">
-<!ENTITY upsih "&#978;">
-<!ENTITY Upsilon "&#933;">
-<!ENTITY upsilon "&#965;">
-<!ENTITY Uuml "&#220;">
-<!ENTITY uuml "&#252;">
-<!ENTITY weierp "&#8472;">
-<!ENTITY Xi "&#926;">
-<!ENTITY xi "&#958;">
-<!ENTITY Yacute "&#221;">
-<!ENTITY yacute "&#253;">
-<!ENTITY yen "&#165;">
-<!ENTITY Yuml "&#376;">
-<!ENTITY yuml "&#255;">
-<!ENTITY Zeta "&#918;">
-<!ENTITY zeta "&#950;">
-<!ENTITY zwj "&#8205;">
-<!ENTITY zwnj "&#8204;">`.replace(/\n/g, ' ');
-
-  /**
-   * A reasonably strict xml declaration.
-   */
-  const XML_DECL = '<?xml version="1.0" standalone="no"?>';
-
-  /**
-   * The beginning of the XML doctype declaration.
-   */
-  const DOCTYPE_START = `<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [`;
-
-  /**
-   * The end of the XML docype declaration.
-   */
-  const DOCTYPE_END = ']>';
-
-  /**
-   * A full header for an SVG XML document.
-   */
-  const SVG_XML_HEADER = `${XML_DECL}
-    ${DOCTYPE_START}${HTML_ENTITIES}${DOCTYPE_END}`;
 
     void Promise.all([...diagrams].map(renderOneMarmaid));
   });
@@ -7878,7 +7593,6 @@ $$ \bar{l}(\omega) = cd^{\omega} $$</p>
 <span class="n">axf</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">axf</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Stream order'</span><span class="p">)</span>
 <span class="n">axf</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Length'</span><span class="p">)</span>
-<span class="c1"># axf.set_xticks(np.arange(1, 12, 1))</span>
 <span class="n">axf</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">axf</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Variable f'</span><span class="p">)</span>
 
@@ -7889,8 +7603,6 @@ $$ \bar{l}(\omega) = cd^{\omega} $$</p>
 <span class="n">axg</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
 <span class="n">axg</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">axg</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Stream order'</span><span class="p">)</span>
-<span class="c1"># axg.set_ylabel('Log length')</span>
-<span class="c1"># axg.set_xticks(np.arange(1, 12, 1))</span>
 <span class="n">axg</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">axg</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Variable g'</span><span class="p">)</span>
 
@@ -7901,8 +7613,6 @@ $$ \bar{l}(\omega) = cd^{\omega} $$</p>
 <span class="n">axo</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
 <span class="n">axo</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">axo</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Stream order'</span><span class="p">)</span>
-<span class="c1"># axo.set_ylabel('Log length')</span>
-<span class="c1"># axo.set_xticks(np.arange(1, 12, 1))</span>
 <span class="n">axo</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">axo</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Variable maximum stream order'</span><span class="p">)</span>
 </pre></div>
@@ -7935,7 +7645,7 @@ $$ \bar{l}(\omega) = cd^{\omega} $$</p>
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We propose that y-intercept $\log f$ and the maximum stream order vary with flow. That stream order is not static has been documented at the field scale (Godsey &amp; Kirchner 2014). Wetting and drying of headwaters and the resulting stream order dynamics propagate downstream, causing the maximum stream order to vary. The following diagram represents the evolution of an extending headwater system. The western part of the network is static, and extension only occurs in the northern part. The upper panels are maps of the network, and the lower panels are scatter plots of length per stream order. At t0 during low flow, only the lower part of geomorphic order 2 in the northern network is flowing. By the dynamic hydrologic ordering scheme, this is order 1. As flow increases from t0 to t1, the channel head migrates upward, and the length of order 1 increases. At t1, the entire lower valley is flowing. Further extension requires that the channel heads migrate upward into the two unwetted valleys. When this occurs at t2, the stream in the lower valley becomes hydrologic order 2, and the upper streams become order 1. The reordering propagates downstream, and the stream below the confluence becomes order 3. There exist very many headwater networks in the Mississippi Basin, all of which extend by headward migration to valley junctions followed by reordering. These changes do not occur in phase with each other. This would require that channel heads migrate upwards and reach valley junctions simultaneously. While some reaches are reordering, others in the network are migrating headward without reordering. When aggregated over very many headwaters, it follows that the lengths of individual stream orders increase with flow without necessarily reordering. This manifests in the scaling law as variable $f$ with flow.</p>
+<p>We propose that y-intercept $\log f$ and the maximum stream order vary with flow. That stream order is not static has been documented at the field scale (Godsey &amp; Kirchner 2014). Wetting and drying of headwaters and the resulting stream order dynamics propagate downstream, causing the maximum stream order to vary. The following diagram represents the evolution of an extending headwater system. The western part of the network is static, and extension only occurs in the northern part. The upper panels are maps of the network, and the lower panels are scatter plots of length per stream order. Dotted lines on the map represent dry streams, and solid lines represent flowing streams. Width of solid lines scales with stream order. At t0 during low flow, only the lower part of geomorphic order 2 in the northern network is flowing. By the dynamic hydrologic ordering scheme, this is order 1. As flow increases from t0 to t1, the channel head migrates upward, and the length of order 1 increases. At t1, the entire lower valley is flowing. Further extension requires that the channel heads migrate upward into the two unwetted valleys. When this occurs at t2, the stream in the lower valley becomes hydrologic order 2, and the upper streams become order 1. The reordering propagates downstream, and the stream below the confluence becomes order 3. There exist very many headwater networks in the Mississippi Basin, all of which extend by headward migration to valley junctions followed by reordering. These changes do not occur in phase with each other. This would require that channel heads migrate upwards and reach valley junctions simultaneously. While some reaches are reordering, others in the network are migrating headward without reordering. When aggregated over very many headwaters, it follows that the lengths of individual stream orders increase with flow without necessarily reordering. This manifests in the scaling law as variable $f$ with flow.</p>
 </div>
 </div>
 </div>
@@ -8073,6 +7783,61 @@ $$ \bar{l}(\omega) = cd^{\omega} $$</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9c30d1dc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>With variable $f$ and maximum stream order and constant $g$, the following behavior is expected.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=34fb6b53">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">high_orders</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span>
+<span class="n">high_L</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10000</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="n">high_orders</span><span class="p">)</span>
+
+<span class="n">medium_orders</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">medium_L</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7000</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="n">medium_orders</span><span class="p">)</span>
+
+<span class="n">low_orders</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">low_L</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4000</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="n">low_orders</span><span class="p">)</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">high_orders</span><span class="p">,</span> <span class="n">high_L</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'^'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'High flow'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">medium_orders</span><span class="p">,</span> <span class="n">medium_L</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'s'</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Medium flow'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">low_orders</span><span class="p">,</span> <span class="n">low_L</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">'Low flow'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Stream order'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Length'</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelleft</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">labelbottom</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
+<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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RG+Oah3T629+85uybNkyGTJkSE9eAgAAJKkeLbWtqKiQwsJCc63bqOpFbxcVFcnrr78u77zzjuzatUvuueee+PcYAACkXuXjzjvvlKeeekouuuii8LEJEyaYIZfbbrtNNmzYII899pjccsst8ewrAABI1crH5s2bY540Ro99+umn5vaoUaPk888/730PAQBAUulR+Bg3bpzce++9snPn37eP1tv33XefGY5RmzZtkpNPPvmYv2Z5ebnk5+eHnw8gwXQDsXi2A4Bj5AtFzxo9Bh9//LFMmTLF7PuRm5trJpjW19eb/T9effVVGT16tJlsun//frnxxhsTdkpeAL3EDqcA4qQ7n989Ch9Kn7ZixQrZuHGjuX3WWWfJxIkTJS2tR8WUMMIHAADeY0v4SBTCBwAA3tOdz+8erXZRK1euNJeWlpYjdjxdvHhxT78sAABIcj0KHz/96U/lZz/7mVxwwQUyfPhwM+cDAAAgYeHjySeflCVLlnR7MikAAECPZoceOnQoYoMxAACAhIaPadOmya9//euePBUAEkrn0Nc27Dni3FMAPD7scvDgQbO9emVlpYwZM0b69OkT8fiCBQvi1T8A6Jalaxtl5ku1UnbteXLV+ce+0SEAl4eP9evXy9ixY83tDz/8MOIxJp8CcMrhYLuUVWw0t8sqNsmVY0ZIur93ew8BcEn4eOutt+LfEwDopeW1TdLQesDcrt8dkNfWN1H9AFyoV38SfPLJJ2aX0wMH/vaPnTFWAE5XPayF/7oDgFY/9DiAJAgfu3btkgkTJphzuEyaNEm2b98enoh69913x7uPAHDMVQ9rmqnON7WqHwCSIHzcddddZpKpnkwuMzMzfPzaa6+VN998M579A4BuVz0sVD+AJAofv//976W0tFROPjlyJvmoUaNk27Zt8eobAPSo6mGh+gEkUfj44osvIioels8//1wyMjLi0S8A6FXVw0L1A3CfHoWPSy65RJ577rmI5bV6crn//M//lPHjx8ezfwDQpeqtrTGrHtHVD20HwMNLba2Q8f7775ut1u+77z7ZsGGD7N69W9asWRP/XgJAJwryBkv5dQVyKBjs9D3q6/ebdgA8HD7y8/PNRmNPPPGE+P1+Mwxz9dVXy+233y5z586VxYsXx7+nABBDRrpfJo8ZznsDeIgvFMfNOWpra6WgoECCXfwFcjT79u2TQYMG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"/>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=21b34c5d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -8125,7 +7890,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">meritlens</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'merit_lendf_20260616.csv'</span><span class="p">)</span>
@@ -8155,7 +7920,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>Text(0.5, 1.0, 'MERIT extracted network')</pre>
 </div>
@@ -8175,7 +7940,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Hydrosheds-v2-vector-trimming-approach">Hydrosheds v2 vector trimming approach<a class="anchor-link" href="#Hydrosheds-v2-vector-trimming-approach">¶</a></h2><p>Next, we validate the theory by trimming the uppermost reaches from the Hydrosheds v2 vector network. Hydrosheds v2 reaches have a flow accumulation threshold of ~ 1 km<sup>2</sup>, which is far larger than the derived flow accumulation thresholds. We trim the vector network for each of 10 flow levels. To do this we overlay the catchment polygons with flow accumulation attributes on the network vector product with a drainage area attribute. For each flow decile, the network is filtered to remove reaches whose drainage area is less than 50x the overlying catchment's corresponding flow accumulation threshold. 50x flow accumulation was selected to maximize the available data while still capturing "full" network dynamics. In tests where the network was trimmed by 10x flow accumulation, in many cases the 8th decile network was expected to have a higher drainage density than Hydrosheds v2 offers, so the highest-flow networks were expected to be longer than the untrimmed Hydrosheds v2 network. Because this approach does not involve generating any new flowlines (and it cannot until flow accumulation rasters in units of area rather than pixels are released), applying this method with 10x flow accumulation cannot represent produce network extension across the full range of flows.</p>
+<h2 id="Hydrosheds-v2-vector-trimming-approach">Hydrosheds v2 vector trimming approach<a class="anchor-link" href="#Hydrosheds-v2-vector-trimming-approach">¶</a></h2><p>Next, we validate the theory by trimming the uppermost reaches from the Hydrosheds v2 vector network. Hydrosheds v2 reaches have a flow accumulation threshold of ~ 1 km<sup>2</sup>, which is far larger than the derived flow accumulation thresholds. We trim the vector network for each of 10 flow levels. To do this we overlay the catchment polygons with flow accumulation attributes on the network vector product with a drainage area attribute. For each flow decile, the network is filtered to remove reaches whose drainage area is less than 50x the overlying catchment's corresponding flow accumulation threshold. 50x flow accumulation was selected to maximize the available data while still capturing "full" network dynamics. In tests where the network was trimmed by 10x flow accumulation, in many cases the 8th decile network was expected to have a higher drainage density than Hydrosheds v2 offers, so the highest-flow networks were expected to be longer than the untrimmed Hydrosheds v2 network. Because this approach does not involve generating any new flowlines (and it cannot until flow accumulation rasters in units of area rather than pixels are released), applying this method with 10x flow accumulation cannot produce network extension across the full range of flows.</p>
 <p>Though the resultant networks are substantially smaller than those derived from DEMs, this approach is still valid given the scale-invariance of river networks. The results of this approach are broadly similar to those of the network extraction from MERIT rasters. At low stream orders, $ \log {L(\omega)} $ scales linearly with $ \omega $ with the same slope regardless of flow. The clean relationship breaks down at high orders due to dynamic reordering and finite size effects.</p>
 </div>
 </div>
@@ -8185,7 +7950,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">hydroshedslens</span> <span class="o">=</span> <span class="p">[]</span>
@@ -8222,7 +7987,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[5]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>Text(0.5, 1.0, 'Hydrosheds v2 trimmed network')</pre>
 </div>
@@ -8251,7 +8016,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
@@ -8283,7 +8048,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>Text(0.1, 0.3, 'Hydrosheds v2\nvector trimming')</pre>
 </div>
@@ -8347,7 +8112,7 @@ The decile lengths calculated from the length-discharge equation are fed into th
 <p>The optimization follows these steps:</p>
 <h3 id="Step-1">Step 1<a class="anchor-link" href="#Step-1">¶</a></h3><p>From the given length of the highest stream order, the total length of the network, and the g value, what is the highest stream order in the network? This step does not necessarily produce a whole number because it is highly improbable that each stream order is exactly $g$ times the length of the next and that the sum of the lengths exactly equals the expected total network length. Fractional stream orders don't make sense, so we round the calculated highest stream order to the nearest integer.</p>
 <p>Derivation of stream order:</p>
-<p>$ L = \sum_{\omega=1}^{\omega_{max}} fg^{\omega} $ is a geometric series. For $ g \neq 1 $, it can be rewritten as $$ S = \sum_{\omega=1}^{\omega_{max}} fg^{\omega} = fg \frac{1-g^{\omega_{max}}}{1-g} $$
+<p>$ L = \sum_{\omega=1}^{\omega_{max}} fg^{\omega} $ is a geometric series. For $ g \neq 1 $, the series can be rewritten as $$ S = \sum_{\omega=1}^{\omega_{max}} fg^{\omega} = fg \frac{1-g^{\omega_{max}}}{1-g} $$
 The length of the highest stream order is given by $$ l(\omega_{max}) = fg^{\omega_{max}} $$</p>
 <p>f is isolated in the equation for the length of the highest stream order. $$ f = \frac{l(\omega_{max})}{g^{\omega_{max}}} $$</p>
 <p>f is replaced in the summation. $$ L = g (\frac{l(\omega_{max})}{g^{\omega_{max}}}) \frac{1-g^{\omega_{max}}}{1-g}  $$</p>
@@ -8365,7 +8130,7 @@ Results of optimizing $ f$ and $\omega_{max}$ follow.</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># total network length</span>
@@ -8416,7 +8181,7 @@ Results of optimizing $ f$ and $\omega_{max}$ follow.</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># optimize f and max order to fit known g, length per max order, and total network length</span>
@@ -8465,7 +8230,7 @@ Results of optimizing $ f$ and $\omega_{max}$ follow.</p>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">67108864</span>
@@ -8527,7 +8292,7 @@ g = 0.5563
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[10]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
 <pre>Text(0.5, 1.0, 'Theoretical approach')</pre>
 </div>
@@ -8547,7 +8312,7 @@ g = 0.5563
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Similarity-of-scaling">Similarity of scaling<a class="anchor-link" href="#Similarity-of-scaling">¶</a></h2><p>Both geospatial approaches produce networks with slightly lower $g$ values than the $g$ derived theoretically from the Horton ratios in (Boyd &amp; Allen, 2025). 2 separate $g$ values are calculated: one for stream orders 1-5 prior to the takeover of finite-size effects, and the other for all stream orders. The brute-force approaches predict that $l(\omega)$ decays less rapidly with increasing stream order than the Horton ratios from (Boyd &amp; Allen, 2025) predict. The empirical $g$ values are close to that calculated from the data in table 2 of (Downing et al 2012). Because Hydrosheds v2 and MERIT both rely on extracting networks from rasters, the lengths of the smallest stream orders are underestimated because the rasters cannot resolve meander bends smaller than their spatial resolution. This also explains why the $g$ values for the MERIT approach are lower than those for the Hydrosheds v2 approach. NHDPlusV2 is built partly from field data and is less likely to suffer from this issue. Regardless, the $g$ values for the brute-force approaches are within the range of published values, and I am confident in their validity.</p>
+<h2 id="Similarity-of-scaling">Similarity of scaling<a class="anchor-link" href="#Similarity-of-scaling">¶</a></h2><p>Both geospatial approaches produce networks with slightly lower $g$ values than the $g$ derived theoretically from the Horton ratios in (Boyd &amp; Allen, 2025). 2 separate $g$ values are calculated: one for stream orders 1-5 prior to the takeover of finite-size effects, and the other for all stream orders. The empirical approaches predict that $l(\omega)$ decays less rapidly with increasing stream order than the Horton ratios from (Boyd &amp; Allen, 2025) predict. The empirical $g$ values are close to that calculated from the data in table 2 of (Downing et al 2012). Because Hydrosheds v2 and MERIT both rely on extracting networks from rasters, the lengths of the smallest stream orders may be underestimated because the rasters cannot resolve meander bends smaller than their spatial resolution. This also explains why the $g$ values for the MERIT approach are lower than those for the Hydrosheds v2 approach, whose vector flowlines were extracted from a 12 m DEM. NHDPlusV2, from which the $g$ value in (Boyd &amp; Allen 2025) is derived, is built partly from field data and is less likely to suffer from this issue. Regardless, the $g$ values for the brute-force approaches are within the range of published values.</p>
 </div>
 </div>
 </div>
@@ -8556,7 +8321,7 @@ g = 0.5563
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">'MERIT network extraction'</span><span class="p">)</span>
@@ -8627,7 +8392,7 @@ Downing (2012) g = 0.4674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">constrained_layout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -8672,9 +8437,9 @@ Downing (2012) g = 0.4674
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[11]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[12]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>&lt;matplotlib.legend.Legend at 0x2126ae37a10&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x2158df3cc20&gt;</pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
@@ -8690,7 +8455,7 @@ Downing (2012) g = 0.4674
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [13]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">color20</span> <span class="o">=</span> <span class="p">[</span>
